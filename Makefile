@@ -65,6 +65,12 @@ lint: Makefile
 module-install: 
 	$(NPM) install
 
+pg-start:
+	pg_ctl -D data/development -l logs/pg_development start
+
+pg-stop:
+	pg_ctl -D data/development stop
+
 serve: build
 	$(NODE) ./server.js
 

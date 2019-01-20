@@ -1,4 +1,7 @@
 lib
+config
+data
+logs
 node_modules
 vendor
 log
