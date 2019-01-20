@@ -9,6 +9,9 @@ describe('Client', () => {
 
   function render(options) {
     const fakeWindow = new JSDOM('').window;
+    fakeWindow.setTimeout = (handler, durationMs) => {
+      handler();
+    };
     return renderElement(client(fakeWindow), fakeWindow.document);
   }
 
@@ -27,5 +30,4 @@ describe('Client', () => {
     assert.equal(client.childNodes[0].childNodes.length, 1);
   });
 });
-
 
