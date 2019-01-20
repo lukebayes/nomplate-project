@@ -1,15 +1,38 @@
 const assert = require('chai').assert;
 const dom = require('nomplate').dom;
-const server = require('../server');
+const {JSDOM} = require('jsdom');
+const main = require('../server/main');
+const renderElement = require('nomplate').renderElement;
 
 describe('Server', () => {
   let instance;
 
-  beforeEach(() => {
-  });
+  function render(options) {
+    const fakeDoc = new JSDOM('').window.document;
+    return renderElement(main(options || {}, () => {
+      return dom.div({id: 'fake-client'});
+    }), fakeDoc);
+  }
 
   it('is instantiable', () => {
-    assert(false, "Expected failure");
+    assert.isNotNull(render());
+  });
+
+  it('renders expected elements', () => {
+    const appContext = render().querySelector('#app-context');
+    assert.isNotNull(appContext);
+  });
+
+  it('renders dev script source', () => {
+    const scriptTag = render({settings: {env: 'development'}}).querySelector('script');
+    assert.isNotNull(scriptTag);
+    assert.equal(scriptTag.src, '/dist/client.js');
+  });
+
+  it('renders minified script source', () => {
+    const scriptTag = render({settings: {env: 'production'}}).querySelector('script');
+    assert.isNotNull(scriptTag);
+    assert.equal(scriptTag.src, '/dist/client.min.js');
   });
 });
 

@@ -28,7 +28,7 @@ BABEL=$(NODE_MODULES_BIN)/babel
 BABEL_NODE=$(NODE_MODULES_BIN)/babel-node
 WEBPACK_CLIENT_CONFIG=webpack-client.config.js
 
-.PHONY: test test-w dev-install build build-module lint clean
+.PHONY: test test-w dev-install build build-module lint clean serve
 
 dist:
 	mkdir dist
