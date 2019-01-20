@@ -47,11 +47,11 @@ build-module: src/*
 publish: clean build
 	npm publish
 
-dist/$(CLIENT_OUTPUT).js: dist index.js src/* Makefile
-	$(WEBPACK) --mode development --config $(WEBPACK_CLIENT_CONFIG) index.js -o dist/$(CLIENT_OUTPUT).js
+dist/$(CLIENT_OUTPUT).js: dist client.js src/* Makefile
+	$(WEBPACK) --mode development --config $(WEBPACK_CLIENT_CONFIG) client.js -o dist/$(CLIENT_OUTPUT).js
 
-dist/$(CLIENT_OUTPUT).min.js: dist index.js src/* Makefile
-	$(WEBPACK) --mode production --optimize-minimize --config $(WEBPACK_CLIENT_CONFIG) index.js -o dist/$(CLIENT_OUTPUT).min.js
+dist/$(CLIENT_OUTPUT).min.js: dist client.js src/* Makefile
+	$(WEBPACK) --mode production --optimize-minimize --config $(WEBPACK_CLIENT_CONFIG) client.js -o dist/$(CLIENT_OUTPUT).min.js
 
 dist/$(CLIENT_OUTPUT).min.gz: dist/$(CLIENT_OUTPUT).min.js
 	gzip --best -c dist/$(CLIENT_OUTPUT).min.js > dist/$(CLIENT_OUTPUT).min.gz
@@ -64,6 +64,9 @@ lint: Makefile
 
 module-install: 
 	$(NPM) install
+
+serve: build
+	$(NODE) ./server.js
 
 integrate: clean lint test build
 
