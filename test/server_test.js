@@ -1,17 +1,15 @@
 const assert = require('chai').assert;
-const client = require('../').client;
 const dom = require('nomplate').dom;
+const server = require('../server');
 
-describe('Client', () => {
+describe('Server', () => {
   let instance;
 
   beforeEach(() => {
-    var fakeWindow = {};
-    instance = client(fakeWindow);
   });
 
   it('is instantiable', () => {
-    assert(instance);
+    assert(false, "Expected failure");
   });
 });
 
