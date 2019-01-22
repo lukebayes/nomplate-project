@@ -4,6 +4,8 @@ This is a new project template for a Nomplate project. This template includes
 support for an Express + Postgres backend with server-side and client side
 Nomplate templates.
 
+This project is continuously integrated using Codeship.
+
 ## Getting Started
 To get started, clone this repository into a new project directory, delete the .git folder and run `make dev-install`.
 
