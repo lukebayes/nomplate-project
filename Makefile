@@ -73,7 +73,7 @@ pg-init:
 # If pg_ctl is not available on a Linux workstation, check the following instructions:
 # https://stackoverflow.com/questions/24757457/cannot-use-commands-postgres-or-pg-ctl
 pg-start:
-	pg_ctl -D data/development -l logs/pg_development start
+	pg_ctl -D data/development -l log/pg_development start
 
 # Stop the postgres db server
 pg-stop:
