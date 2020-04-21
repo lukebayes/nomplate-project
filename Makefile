@@ -11,7 +11,7 @@ SERVER_OUTPUT=server
 
 # Nodejs
 # https://nodejs.org/dist/v10.9.0/node-v10.9.0-linux-x64.tar.xz
-NODE_VERSION=10.15.0
+NODE_VERSION=12.16.2
 NODE=lib/nodejs/bin/node
 NPM=lib/nodejs/bin/npm
 
@@ -58,11 +58,11 @@ dist/$(CLIENT_OUTPUT).min.gz: dist/$(CLIENT_OUTPUT).min.js
 
 dist/$(SERVER_OUTPUT).js: Makefile
 	$(WEBPACK) --config $(WEBPACK_SERVER_CONFIG) express.js dist/$(SERVER_OUTPUT).js
-	
+
 lint: Makefile
 	$(ESLINT) --config $(PROJECT_ROOT)/.eslintrc.json .
 
-module-install: 
+module-install:
 	$(NPM) install
 
 # Create a new development database
@@ -84,7 +84,7 @@ serve: build
 
 integrate: clean lint test build
 
-clean: 
+clean:
 	rm -rf dist
 	rm -rf tmp
 	rm -f .tmp-view.html
