@@ -8,8 +8,21 @@ function main(options, renderView) {
     dom.head(() => {
       dom.meta({charset: 'utf8'});
       dom.title('Nomplate Project');
-      dom.link({rel: 'stylesheet', href: 'static/styles.css'});
       dom.script({src: scriptSource, type: 'text/javascript'});
+      dom.style(() => {
+        dom.selector('body', {
+          backgroundColor: 'yellow',
+          font: '1.2em "Arial Verdana _sans", sans-serif',
+        });
+        dom.selector('h1', {
+          color: '#222',
+        });
+        dom.selector('img', {
+          border: '1px solid #333',
+          width: '200px',
+          height: '200px',
+        });
+      });
     });
     dom.body(() => {
       dom.div({id: 'app-context'}, () => {

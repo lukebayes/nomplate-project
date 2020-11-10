@@ -4,14 +4,17 @@
 
 # Operating System (darwin or linux)
 PLATFORM:=$(shell uname | tr A-Z a-z)
-ARCH=x64
+# make dev-install ARCH=armv7l to get the right version of nodejs
+# Ubuntu desktop is "x86_64", Raspberry Pi is "armv7l", Nodejs
+# requires "x86_64" to be "x64"
+ARCH:=${shell arch | sed "s/86_//g"}
 PROJECT_ROOT=$(shell git rev-parse --show-toplevel)
 CLIENT_OUTPUT=client
 SERVER_OUTPUT=server
 
 # Nodejs
 # https://nodejs.org/dist/v10.9.0/node-v10.9.0-linux-x64.tar.xz
-NODE_VERSION=12.16.2
+NODE_VERSION=14.15.0
 NODE=lib/nodejs/bin/node
 NPM=lib/nodejs/bin/npm
 

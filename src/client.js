@@ -8,6 +8,10 @@ function client(win) {
       dom.span('Now: ' + Date.now());
       // Re-render every second
       win.setTimeout(update, 1000);
+
+      dom.div(() => {
+        dom.img({src: '/static/gnomeplate.png', alt: 'Gnome Plate'});
+      });
     });
   });
 };
