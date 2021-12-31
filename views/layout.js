@@ -4,7 +4,7 @@ function main(options, renderView) {
   // Use minified sources for production environment
   const scriptSource = options.settings && options.settings.env === 'production' ? '/dist/client.min.js' : '/dist/client.js';
 
-  console.log('Main view rendered');
+  // console.log('Main layout rendered');
 
   return dom.html({lang: 'en'}, () => {
     dom.head(() => {
