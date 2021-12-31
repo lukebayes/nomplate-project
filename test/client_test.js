@@ -1,33 +1,32 @@
 const assert = require('chai').assert;
-const dom = require('nomplate').dom;
-const {JSDOM} = require('jsdom');
 const client = require('../').client;
-const renderElement = require('nomplate').renderElement;
+const testHelper = require('nomplate/test_helper');
 
 describe('Client', () => {
-  let instance;
+  let instance, fakeWin;
 
-  function render(options) {
-    const fakeWindow = new JSDOM('').window;
-    fakeWindow.setTimeout = (handler, durationMs) => {
-      handler();
-    };
-    return renderElement(client(fakeWindow), fakeWindow.document);
-  }
-
-  it('is instantiable', () => {
-    assert.isNotNull(render());
+  beforeEach(() => {
+    // Create a simple window stub that allows the client entry point to set up
+    // a setTimeout without locking up the test environment.
+    fakeWin = {
+      setTimeout: () => {},
+    }
   });
 
+  // Wrap the Nomplate testHelper.renderElement call for these tests.
+  function render() {
+    return testHelper.renderElement(client(fakeWin));
+  }
+
   it('renders header element', () => {
-    const client = render().querySelector('h1');
-    assert.equal(client.innerHTML, 'Hello World');
+    const header = render().querySelector('h1');
+    assert.equal(header.innerHTML, 'Hello World');
   });
 
   it('renders 2 childern', () => {
-    const client = render();
-    assert.equal(client.childNodes.length, 2);
-    assert.equal(client.childNodes[0].childNodes.length, 1);
+    const elem = render();
+    assert.equal(elem.childNodes.length, 2);
+    assert.equal(elem.childNodes[0].childNodes.length, 1);
   });
 });
 

@@ -14,7 +14,7 @@ SERVER_OUTPUT=server
 
 # Nodejs
 # https://nodejs.org/dist/v10.9.0/node-v10.9.0-linux-x64.tar.xz
-NODE_VERSION=14.15.0
+NODE_VERSION=16.13.0
 NODE=lib/nodejs/bin/node
 NPM=lib/nodejs/bin/npm
 
@@ -26,10 +26,7 @@ NODE_MODULES_BIN=node_modules/.bin
 # Node utilities
 ESLINT=$(NODE_MODULES_BIN)/eslint
 MOCHA=$(NODE_MODULES_BIN)/_mocha
-WEBPACK=$(NODE_MODULES_BIN)/webpack
-BABEL=$(NODE_MODULES_BIN)/babel
-BABEL_NODE=$(NODE_MODULES_BIN)/babel-node
-WEBPACK_CLIENT_CONFIG=webpack-client.config.js
+ESBUILD=$(NODE_MODULES_BIN)/esbuild
 
 .PHONY: test test-w dev-install build build-module lint clean serve
 
@@ -51,16 +48,16 @@ publish: clean build
 	npm publish
 
 dist/$(CLIENT_OUTPUT).js: dist client.js src/* Makefile
-	$(WEBPACK) --mode development --config $(WEBPACK_CLIENT_CONFIG) client.js -o dist/$(CLIENT_OUTPUT).js
+	$(ESBUILD) client.js --bundle --outfile=dist/$(CLIENT_OUTPUT).js
 
 dist/$(CLIENT_OUTPUT).min.js: dist client.js src/* Makefile
-	$(WEBPACK) --mode production --optimize-minimize --config $(WEBPACK_CLIENT_CONFIG) client.js -o dist/$(CLIENT_OUTPUT).min.js
+	$(ESBUILD) client.js --bundle --minify --outfile=dist/$(CLIENT_OUTPUT).min.js
 
 dist/$(CLIENT_OUTPUT).min.gz: dist/$(CLIENT_OUTPUT).min.js
 	gzip --best -c dist/$(CLIENT_OUTPUT).min.js > dist/$(CLIENT_OUTPUT).min.gz
 
-dist/$(SERVER_OUTPUT).js: Makefile
-	$(WEBPACK) --config $(WEBPACK_SERVER_CONFIG) express.js dist/$(SERVER_OUTPUT).js
+dist/express.js:
+	$(ESBUILD) express.js --bundle --target=node$(NODE_VERSION) --outfile=dist/express.js
 
 lint: Makefile
 	$(ESLINT) --config $(PROJECT_ROOT)/.eslintrc.json .
