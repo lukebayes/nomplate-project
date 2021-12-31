@@ -47,10 +47,10 @@ build-module: src/*
 publish: clean build
 	npm publish
 
-dist/$(CLIENT_OUTPUT).js: dist client.js src/* Makefile
+dist/$(CLIENT_OUTPUT).js: dist client.js src/* views/* Makefile
 	$(ESBUILD) client.js --bundle --outfile=dist/$(CLIENT_OUTPUT).js
 
-dist/$(CLIENT_OUTPUT).min.js: dist client.js src/* Makefile
+dist/$(CLIENT_OUTPUT).min.js: dist client.js src/* views/* Makefile
 	$(ESBUILD) client.js --bundle --minify --outfile=dist/$(CLIENT_OUTPUT).min.js
 
 dist/$(CLIENT_OUTPUT).min.gz: dist/$(CLIENT_OUTPUT).min.js
@@ -69,7 +69,7 @@ module-install:
 serve-dev: build
 	NODE_ENV=${NODE_ENV} \
 	DEBUG=log,warn,error,fatal \
-	nodemon -w src -w test -w script --exec "make clean build && node ./server.js"
+	nodemon -w src -w views -w test -w script --exec "make clean build && node ./server.js"
 
 serve: build
 	$(NODE) ./server.js

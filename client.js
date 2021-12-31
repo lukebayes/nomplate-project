@@ -3,6 +3,7 @@ const ready = require('nomplate').ready;
 const renderElement = require('nomplate').renderElement;
 
 // Elements can be created immediately (i.e., before the entire page loads).
+console.log('Client loaded with:', window, 'and', document);
 const liveClient = renderElement(client(window), document);
 
 ready(document, () => {
