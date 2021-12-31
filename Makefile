@@ -27,6 +27,7 @@ NODE_MODULES_BIN=node_modules/.bin
 ESLINT=$(NODE_MODULES_BIN)/eslint
 MOCHA=$(NODE_MODULES_BIN)/_mocha
 ESBUILD=$(NODE_MODULES_BIN)/esbuild
+ESBUILD_TARGETS=chrome58,firefox57,safari11,edge16
 
 .PHONY: test test-w dev-install build build-module lint clean serve
 
@@ -48,10 +49,10 @@ publish: clean build
 	npm publish
 
 dist/$(CLIENT_OUTPUT).js: dist client.js src/* views/* Makefile
-	$(ESBUILD) client.js --bundle --outfile=dist/$(CLIENT_OUTPUT).js
+	$(ESBUILD) client.js --define:global=window --bundle --sourcemap --target=$(ESBUILD_TARGETS) --outfile=dist/$(CLIENT_OUTPUT).js
 
 dist/$(CLIENT_OUTPUT).min.js: dist client.js src/* views/* Makefile
-	$(ESBUILD) client.js --bundle --minify --outfile=dist/$(CLIENT_OUTPUT).min.js
+	$(ESBUILD) client.js --define:global=window --bundle --minify --target=$(ESBUILD_TARGETS) --outfile=dist/$(CLIENT_OUTPUT).min.js
 
 dist/$(CLIENT_OUTPUT).min.gz: dist/$(CLIENT_OUTPUT).min.js
 	gzip --best -c dist/$(CLIENT_OUTPUT).min.js > dist/$(CLIENT_OUTPUT).min.gz

@@ -6,8 +6,8 @@ function client(win) {
     dom.h1('Client Rendered Content');
     dom.div((update) => {
       dom.span('Now: ' + Date.now());
-      // Re-render every second
-      win.setTimeout(update, 1000);
+      // Re-render every hundred milliseconds
+      win.setTimeout(update, 100);
 
       dom.div(() => {
         dom.img({src: '/static/gnomeplate.png', alt: 'Gnome Plate'});
