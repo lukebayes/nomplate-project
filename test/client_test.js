@@ -20,7 +20,7 @@ describe('Client', () => {
 
   it('renders header element', () => {
     const header = render().querySelector('h1');
-    assert.equal(header.innerHTML, 'Hello World');
+    assert.equal(header.innerHTML, 'Client Rendered Content');
   });
 
   it('renders 2 childern', () => {

@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 const dom = require('nomplate').dom;
 const {JSDOM} = require('jsdom');
-const main = require('../server/main');
+const layout = require('../views/layout');
 const renderElement = require('nomplate').renderElement;
 
 describe('Server', () => {
@@ -9,7 +9,7 @@ describe('Server', () => {
 
   function render(options) {
     const fakeDoc = new JSDOM('').window.document;
-    return renderElement(main(options || {}, () => {
+    return renderElement(layout(options || {}, () => {
       return dom.div({id: 'fake-client'});
     }), fakeDoc);
   }
