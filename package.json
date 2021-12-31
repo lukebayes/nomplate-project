@@ -24,6 +24,7 @@
     "jsdom-simulant": "^1.1.2",
     "json-loader": "^0.5.7",
     "mocha": "^8.3.2",
+    "nodemon": "^2.0.15",
     "sinon": "^7.5.0"
   }
 }

@@ -65,19 +65,11 @@ lint: Makefile
 module-install:
 	$(NPM) install
 
-# Create a new development database
-pg-init:
-	initdb data/development
-
-# Start the postgres db server with the development datastore.
-# If pg_ctl is not available on a Linux workstation, check the following instructions:
-# https://stackoverflow.com/questions/24757457/cannot-use-commands-postgres-or-pg-ctl
-pg-start:
-	pg_ctl -D data/development -l log/pg_development start
-
-# Stop the postgres db server
-pg-stop:
-	pg_ctl -D data/development stop
+# Serve for development with nodemon
+serve-dev: build
+	NODE_ENV=${NODE_ENV} \
+	DEBUG=log,warn,error,fatal \
+	nodemon -w src -w test -w script --exec "make clean build && node ./server.js"
 
 serve: build
 	$(NODE) ./server.js
