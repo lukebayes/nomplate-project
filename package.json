@@ -20,10 +20,10 @@
     "esbuild": "^0.14.10",
     "express": "^4.17.1",
     "js-beautify": "^1.13.13",
-    "jsdom": "^13.2.0",
+    "jsdom": "^20.0.0",
     "jsdom-simulant": "^1.1.2",
     "json-loader": "^0.5.7",
-    "mocha": "^8.3.2",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.15",
     "sinon": "^7.5.0"
   }
